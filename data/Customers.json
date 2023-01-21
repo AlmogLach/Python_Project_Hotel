@@ -465,15 +465,30 @@
             "NumberOfBeds": 2,
             "Type": "Deluxe",
             "Price": 200
+        },
+        {
+            "id": 37,
+            "Size": "22mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Basic",
+            "Price": 100
         }
     ],
     "Booking": [
         {
             "CustID": 10,
             "RoomID": 12,
-            "ArrivalDate": "20/10/2023",
-            "DepartureDate": "25/10/2023",
+            "ArrivalDate": "2023-10-10",
+            "DepartureDate": "2023-10-25",
             "TotalPrice": 1000
+        },
+        {
+            "CustID": 1,
+            "RoomID": 1,
+            "ArrivalDate": "2022-01-04",
+            "DepartureDate": "2022-01-11",
+            "TotalPrice": 700
         }
     ]
 }

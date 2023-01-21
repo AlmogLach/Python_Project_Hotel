@@ -62,18 +62,18 @@ class Customers:
                 print("\n\n")
 
     @classmethod
-    def Cust_by_name(cls, filename="./data/Customers.json"):
+    def Cust_by_name(cls, name1,filename="./data/Customers.json"):
 
         with open(filename, "r") as f:
             temp = json.load(f)
             d = temp["Customers"]
             # print(d)
             # data_length = len(temp) - 1
-        Customer_Name = input("Enter Customer Name: ")
+
         # delete_option = input(f"Select id")
         for entry in d:
 
-            if str(entry["Name"]) == str(Customer_Name):
+            if str(entry["Name"]) == str(name1):
                 name = entry["Name"]
                 Address = entry["Address"]
                 City = entry["City"]
@@ -87,11 +87,14 @@ class Customers:
                 print(f"Email of custumer  : {Email}")
                 print(f"Age of custumer  : {Age}")
                 print("\n\n")
+               # cust = name, Address, City, Email, Age
+                return Customers(name, Address, City, Email, Age)
+            return "Customer not found"
+
 
             # list(filter(None, entry))
 
-            else:
-                pass
+
     @classmethod
     def Remove_customer(cls):
        # new_data = []

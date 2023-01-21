@@ -11,6 +11,7 @@ class Booking:
         self.ArrivalDate = ArrivalDate
         self.DepartureDate = DepartureDate
         self.TotalPrice = 0
+        print(ArrivalDate)
 
     def check_customer(self, cust_id):
         self.load_data()
@@ -28,14 +29,14 @@ class Booking:
 
     def check_availability(self, room_id, arrival_date, departure_date):
         self.load_data()
-        arrival_date = datetime.strptime(arrival_date, "%d/%m/%Y")
-        departure_date = datetime.strptime(departure_date, "%d/%m/%Y")
+        arrival_date = datetime.strptime(arrival_date, "%Y-%m-%d")
+        departure_date = datetime.strptime(departure_date, "%Y-%m-%d")
         for booking in self.temp["Booking"]:
             if booking["RoomID"] == room_id and (
-                    arrival_date >= datetime.strptime(booking["ArrivalDate"], "%d/%m/%Y") and
-                    arrival_date <= datetime.strptime(booking["DepartureDate"], "%d/%m/%Y")) or (
-                    departure_date >= datetime.strptime(booking["ArrivalDate"], "%d/%m/%Y") and
-                    departure_date <= datetime.strptime(booking["DepartureDate"], "%d/%m/%Y")):
+                    arrival_date >= datetime.strptime(booking["ArrivalDate"], "%Y-%m-%d") and
+                    arrival_date <= datetime.strptime(booking["DepartureDate"], "%Y-%m-%d")) or (
+                    departure_date >= datetime.strptime(booking["ArrivalDate"], "%Y-%m-%d") and
+                    departure_date <= datetime.strptime(booking["DepartureDate"], "%Y-%m-%d")):
                 return False
         nights = (departure_date - arrival_date).days
         room_type = None
@@ -69,8 +70,8 @@ class Booking:
                 room = r
                 break
         if room:
-            arrival = datetime.strptime(self.ArrivalDate, "%d/%m/%Y")
-            departure = datetime.strptime(self.DepartureDate, "%d/%m/%Y")
+            arrival = datetime.strptime(self.ArrivalDate, "%Y-%m-%d")
+            departure = datetime.strptime(self.DepartureDate, "%Y-%m-%d")
             nights = (departure - arrival).days
             self.TotalPrice = nights * room["Price"]
 
@@ -95,11 +96,11 @@ class Booking:
             print("Booking failed, please check the customer ID, room ID and availability.")
 
     @classmethod
-    def cancel_booking(cls, cust_id, room_id):
+    def cancel_booking(cls, cust_id):
         with open(filename, "r") as f:
             temp = json.load(f)
         for booking in temp["Booking"]:
-            if booking["CustID"] == cust_id and booking["RoomID"] == room_id:
+            if booking["CustID"] == cust_id:
                 temp["Booking"].remove(booking)
                 with open(filename, "w") as f:
                     json.dump(temp, f, indent=4)
@@ -158,15 +159,15 @@ class Booking:
             room_available = True
             for booking in temp["Booking"]:
                 if booking["RoomID"] == room_id:
-                    if (datetime.strptime(date, "%d/%m/%Y") >= datetime.strptime(booking["ArrivalDate"],
-                                                                                          "%d/%m/%Y")) and (
-                            datetime.strptime(date, "%d/%m/%Y") <= datetime.strptime(booking["DepartureDate"],
-                                                                                              "%d/%m/%Y")):
+                    if (datetime.strptime(date, "%Y-%m-%d") >= datetime.strptime(booking["ArrivalDate"],
+                                                                                          "%Y-%m-%d")) and (
+                            datetime.strptime(date, "%Y-%m-%d") <= datetime.strptime(booking["DepartureDate"],
+                                                                                              "%Y-%m-%d")):
                         room_available = False
                         break
             if room_available:
                 available_rooms.append(room_id)
-        print(len(available_rooms))
+        #print(len(available_rooms))
 
 
                 # print(f"Arrival Date: {booking['ArrivalDate']}")
@@ -177,5 +178,3 @@ class Booking:
             # print(f"there is {count} Available Rooms in {date}")
 
 #
-# book = Booking(10, 12, '20/10/2023', '25/10/2023')
-# book.add_booking()
