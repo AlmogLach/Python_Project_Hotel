@@ -40,26 +40,20 @@ class Customers:
             json.dump(self.temp, f, indent=4)
 
     @classmethod
-    def view_data(cls):
-
-        with open(filename, "r", encoding='utf-8') as f:
+    def display_All_Customers(cls, filename="./data/Customers.json"):
+        customers_list = []
+        with open(filename, "r") as f:
             temp = json.load(f)
-            d=temp["Customers"]
-            for entry in d:
-                # print(entry)
-                name = entry["Name"]
-                Address = entry["Address"]
-                City = entry["City"]
-                Email = entry["Email"]
-                Age = entry["Age"]
-                ID = entry["ID"]
-                print(f"Customer id {ID}")
-                print(f"Name of custumer  : {name}")
-                print(f"Adress of custumer: {Address}")
-                print(f"City of custumer  : {City}")
-                print(f"Email of custumer  : {Email}")
-                print(f"Age of custumer  : {Age}")
-                print("\n\n")
+        customers_list = []
+        for Customer in temp["Customers"]:
+                name = Customer["Name"]
+                Address = Customer["Address"]
+                City = Customer["City"]
+                Email = Customer["Email"]
+                Age = Customer["Age"]
+                ID = Customer["ID"]
+                customers_list.append((name,Address,City,Email,Age,ID))
+        return customers_list
 
     @classmethod
     def Cust_by_name(cls, name1,filename="./data/Customers.json"):
@@ -96,26 +90,19 @@ class Customers:
 
 
     @classmethod
-    def Remove_customer(cls):
+    def Remove_customer(cls,delete_option):
        # new_data = []
 
         with open(filename, "r") as f:
             temp = json.load(f)
-            #d = temp["Customers"]
-            #print(d)
-            #data_length = len(temp) - 1
-        print("Which Customer would you like to delete?")
-        delete_option = input(f"Select a Customer Name")
-        i = 0
 
         for customer in temp["Customers"]:
             if customer["Name"] == delete_option:
                 temp["Customers"].remove(customer)
                 with open(filename, "w") as f:
                     json.dump(temp, f, indent=4)
-                return "Customer removed successfully"
-
-        return "No customer found with the given name"
+                return True
+        return False
         # for entry in d:
         #     # print(d["Name"])
         #     for custor

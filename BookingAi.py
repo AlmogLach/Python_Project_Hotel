@@ -99,37 +99,42 @@ class Booking:
     def cancel_booking(cls, cust_id):
         with open(filename, "r") as f:
             temp = json.load(f)
+
+        booking_found = False
         for booking in temp["Booking"]:
             if booking["CustID"] == cust_id:
                 temp["Booking"].remove(booking)
-                with open(filename, "w") as f:
-                    json.dump(temp, f, indent=4)
-                print("Booking canceled successfully.")
-                return
-        print("Booking not found.")
+                booking_found = True
+                break
+
+        if booking_found:
+            with open(filename, "w") as f:
+                json.dump(temp, f, indent=4)
+            print("Booking canceled successfully.")
+            return True
+        else:
+            print("Booking not found.")
+            return False
 
     @classmethod
     def view_bookings(cls):
         with open(filename, "r") as f:
             temp = json.load(f)
-        for booking in temp["Booking"]:
-            customer_name = None
-            room_type = None
-            for customer in temp["Customers"]:
-                if customer["ID"] == booking["CustID"]:
-                    customer_name = customer["Name"]
-                    break
-            for room in temp["Rooms"]:
-                if room["id"] == booking["RoomID"]:
-                    room_type = room["Type"]
-                    break
-            print(f"Booking for customer {customer_name} in room type {room_type}")
-            print(f"Arrival Date: {booking['ArrivalDate']}")
+        bookings = []
+        for Book in temp["Booking"]:
+            CustID = Book["CustID"]
+            RoomID = Book["RoomID"]
+            ArrivalDate = Book["ArrivalDate"]
+            DepartureDate = Book["DepartureDate"]
+            TotalPrice = Book["TotalPrice"]
+            bookings.append((CustID, RoomID, ArrivalDate, DepartureDate, TotalPrice))
+        return bookings
 
     @classmethod
     def BookedRoomsSpecificDate(cls, date):
         with open(filename, "r") as f:
             temp = json.load(f)
+        list = []
         for booking in temp["Booking"]:
             customer_name = None
             room_type = None
@@ -142,12 +147,14 @@ class Booking:
                     if room["id"] == booking["RoomID"]:
                         room_type = room["Type"]
                         break
-                print(f"Booking for customer {customer_name} in room type {room_type}")
-                print(f"Arrival Date: {booking['ArrivalDate']}")
+                list.append((customer_name, room_type, booking['ArrivalDate']))
+
             else:
                 # except Exception as error:
                 # print(f"Couldn't load the file - error {error}")
                 print(f"there is no reservetions for {date}")
+
+        return list
 
     @classmethod
     def AvailableroomsSpecificDate(cls, date):
@@ -160,21 +167,20 @@ class Booking:
             for booking in temp["Booking"]:
                 if booking["RoomID"] == room_id:
                     if (datetime.strptime(date, "%Y-%m-%d") >= datetime.strptime(booking["ArrivalDate"],
-                                                                                          "%Y-%m-%d")) and (
+                                                                                 "%Y-%m-%d")) and (
                             datetime.strptime(date, "%Y-%m-%d") <= datetime.strptime(booking["DepartureDate"],
-                                                                                              "%Y-%m-%d")):
+                                                                                     "%Y-%m-%d")):
                         room_available = False
                         break
             if room_available:
                 available_rooms.append(room_id)
-        #print(len(available_rooms))
+        # print(len(available_rooms))
 
-
-                # print(f"Arrival Date: {booking['ArrivalDate']}")
-            # if count==0:
-            #     # except Exception as error:
-            #     # print(f"Couldn't load the file - error {error}")
-            #     print(f"there is no Room Available for {date}")
-            # print(f"there is {count} Available Rooms in {date}")
+        # print(f"Arrival Date: {booking['ArrivalDate']}")
+        # if count==0:
+        #     # except Exception as error:
+        #     # print(f"Couldn't load the file - error {error}")
+        #     print(f"there is no Room Available for {date}")
+        # print(f"there is {count} Available Rooms in {date}")
 
 #

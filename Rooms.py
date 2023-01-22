@@ -6,12 +6,11 @@ filename = "./data/Customers.json"
 class Rooms:
     def __init__(self, size, capacity, numberOfBeds, Type, price):
 
-        self._Size = size
-        self._Capacity = capacity
-        self._NumberOfBeds = numberOfBeds
-        self._Type = Type
-        self._Price = price
-        # print(self._id())
+        self.Size = size
+        self.Capacity = capacity
+        self.NumberOfBeds = numberOfBeds
+        self.Type = Type
+        self.Price = price
 
     # self._room_type = {"Basic": 1, "Delux": 2, "Suite": 3}
 
@@ -27,28 +26,21 @@ class Rooms:
 
     @classmethod
     def display_All_Rooms(cls):
+
         with open(filename, "r") as f:
             temp = json.load(f)
-            d = temp["Rooms"]
-            de = []
-            for entry in d:
-                ID = entry["id"]
-                Size = entry["Size"]
-                Capacity = entry["Capacity"]
-                NumberOfBeds = entry["NumberOfBeds"]
-                Type = entry["Type"]
-                Price = entry["Price"]
+            #d = temp["Rooms"]
+        rooms_list = []
+        for Room in temp["Rooms"]:
+                ID = Room["id"]
+                size = Room["Size"]
+                Capacity = Room["Capacity"]
+                NumberOfBeds = Room["NumberOfBeds"]
+                Type = Room["Type"]
+                Price = Room["Price"]
 
-                de.append((f"Room Number {ID}"),
-                          (f"Size of The Room  : {Size}"),
-                          (f"Capacity of Rom: {Capacity}"),
-                          (f"NumberOfBeds in the Room  : {NumberOfBeds}"),
-                          (f"Type of the room  : {Type}"),
-                          (f"Price of the Room  : {Price}"),
-                          ("\n\n"))
-
-                return json.dumps(de)
-                # i = i + 1
+                rooms_list.append((ID, size, Capacity, NumberOfBeds, Type, Price))
+        return rooms_list
 
     # pass
 
@@ -57,32 +49,32 @@ class Rooms:
         # print(self.temp)
         data = {}
         data["id"] = len(self.temp["Rooms"]) + 1
-        data["Size"] = self._Size
-        data["Capacity"] = self._Capacity
-        data["NumberOfBeds"] = self._NumberOfBeds
-        data["Type"] = self._Type
-        data["Price"] = self._Price
+        data["Size"] = self.Size
+        data["Capacity"] = self.Capacity
+        data["NumberOfBeds"] = self.NumberOfBeds
+        data["Type"] = self.Type
+        data["Price"] = self.Price
         # temp["Rooms"]
 
         self.temp["Rooms"].append(data)
         with open(filename, "w") as f:
             json.dump(self.temp, f, indent=4)
 
-    def Book_room(self):
-        self.load_rooms()
-        print(self.temp)
-        data = {}
-        data["CustID"] = self.CustID
-        data["RoomID"] = self._id
-        data["ArrivalDate"] = self.ArrivalDate
-        data["DepartureDate"] = self.DepartureDate
-        data["TotalPrice"] = self.TotalPrice
-
-        # temp["Rooms"]
-
-        self.temp["Booking"].append(data)
-        with open(filename, "w") as f:
-            json.dump(self.temp, f, indent=4)
+    # def Book_room(self):
+    #     self.load_rooms()
+    #     print(self.temp)
+    #     data = {}
+    #     data["CustID"] = self.CustID
+    #     data["RoomID"] = self.ID
+    #     data["ArrivalDate"] = self.ArrivalDate
+    #     data["DepartureDate"] = self.DepartureDate
+    #     data["TotalPrice"] = self.TotalPrice
+    #
+    #     # temp["Rooms"]
+    #
+    #     self.temp["Booking"].append(data)
+    #     with open(filename, "w") as f:
+    #         json.dump(self.temp, f, indent=4)
 
     @classmethod
     def RoomByType(cls, filename="./data/Customers.json"):
@@ -141,24 +133,28 @@ class Rooms:
                 pass
 
     @classmethod
-    def Remove_Room(cls):
+    def Remove_Room(cls,delete_option):
 
         with open(filename, "r") as f:
             temp = json.load(f)
             # d = temp["Customers"]
             # print(d)
             # data_length = len(temp) - 1
-        print("Which Room would you like to delete?")
-        delete_option = int(input(f"Select a Room Number"))
-
+        deleted = False
         for Room in temp["Rooms"]:
             if Room["id"] == delete_option:
                 temp["Rooms"].remove(Room)
-                with open(filename, "w") as f:
-                    json.dump(temp, f, indent=4)
-                return "Room removed successfully"
+                deleted = True
+                break
+        if deleted:
+            with open(filename, "w") as f:
+                json.dump(temp, f, indent=4)
+            return True
+        else:
+            return False
 
-        return "No Room found By This Room Number"
+    def __str__(self):
+        return f"Size: {self.Size}, Capacity: {self.Capacity}, Number of Beds: {self.NumberOfBeds}, Type: {self.Type}, Price: {self.Price}"
 
 #
 # #C = Customer.Customers()

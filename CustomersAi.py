@@ -1,8 +1,9 @@
 import tkinter as tk
 import tkinter.messagebox as messagebox
-
+from tkinter import Y
 from tkcalendar import Calendar
-
+from tkinter import TOP
+from tkinter import RIGHT
 from BookingAi import Booking
 from Rooms import Rooms
 from customers1 import Customers
@@ -14,7 +15,7 @@ class MainApplication(tk.Frame):
         self.master = master
         self.grid()
         self.create_widgets()
-        self.master.title("Almog and Saar Hotel")
+        self.master.title("Almog Hotel")
 
     def create_widgets(self):
         self.add_room_button = tk.Button(self, text="1. Add a new room", command=self.add_room_popup)
@@ -33,7 +34,7 @@ class MainApplication(tk.Frame):
         self.display_rooms_button.grid(row=4, column=0)
 
         self.display_customers_button = tk.Button(self, text="6. Display all customers",
-                                                  command=self.display_all_customers)
+                                                  command=self.display_all_customers_popup)
         self.display_customers_button.grid(row=5, column=0)
 
         self.display_bookings_button = tk.Button(self, text="7. Display all bookings",
@@ -41,11 +42,11 @@ class MainApplication(tk.Frame):
         self.display_bookings_button.grid(row=6, column=0)
 
         self.display_booked_rooms_button = tk.Button(self, text="8. Display booked rooms for a specific date",
-                                                     command=self.display_booked_rooms)
+                                                     command=self.display_all_customers_popup)
         self.display_booked_rooms_button.grid(row=7, column=0)
 
         self.display_available_rooms_button = tk.Button(self, text="9. Display available rooms for a specific date",
-                                                        command=self.display_available_rooms)
+                                                        command="")
         self.display_available_rooms_button.grid(row=8, column=0)
 
         self.find_room_by_type_button = tk.Button(self, text="10. Find room by type", command=self.find_room_by_type)
@@ -157,16 +158,41 @@ class MainApplication(tk.Frame):
     # popup.destroy()
 
     def display_all_rooms_popup(self):
-        popup = tk.Toplevel(self)
-        popup.geometry("800x600")
-        popup.title("All Rooms")
+            view_bookings_window = tk.Toplevel(self.master)
+            view_bookings_window.title("All Rooms")
+            view_bookings_window.geometry("800x600")
+            view_bookings_window.config(bg="white")
 
-        rooms_list = Rooms.display_All_Rooms()
+            Room = Rooms.display_All_Rooms()
 
-        listbox = tk.Listbox(popup, width=600, height=800)
-        listbox.grid(row=0, column=0)
+            # Create a Listbox widget to hold the room information
+            room_list = tk.Listbox(view_bookings_window, width=600, height=800)
+            room_list.grid(row=4, column=3)
+            room_list.config(justify=tk.CENTER)
+            room_list.pack(side=TOP)
+            #room_list.insert(tk.END, "")
 
-        listbox.insert(tk.END, rooms_list)
+            # Create a Scrollbar widget and connect it to the Listbox
+            scrollbar = tk.Scrollbar(view_bookings_window)
+            scrollbar.pack(side=RIGHT, fill=Y)
+            scrollbar.config(command=room_list.yview)
+            room_list.config(yscrollcommand=scrollbar.set)
+
+            for R in Room:
+                ID = R[0]
+                Size = R[1]
+                Capacity = R[2]
+                NumberOfBeds = R[3]
+                Type = R[4]
+                Price = R[5]
+                room_list.insert(tk.END, f"Room Number: {ID}")
+                room_list.insert(tk.END, f"Size Of The Room is: {Size}")
+                room_list.insert(tk.END, f"Room type: {Type}")
+                room_list.insert(tk.END, f"Capacity: {Capacity}")
+                room_list.insert(tk.END, f"NumberOfBeds: {NumberOfBeds}")
+                room_list.insert(tk.END, f"Price: {Price}\n\n\n")
+                room_list.insert(tk.END, "")
+
 
     def add_customer(self, popup, customer_name, customer_address, customer_city, customer_email, customer_age):
         Cust = Customers(customer_name, customer_address, customer_city, customer_email, customer_age)
@@ -214,9 +240,9 @@ class MainApplication(tk.Frame):
         cancel_booking_window = tk.Toplevel()
         cancel_booking_window.title("Cancel Booking")
         cancel_booking_window.geometry("300x200")
-        cancel_booking_window.config(bg="white")
+        cancel_booking_window.config()
 
-        booking_id_label = tk.Label(cancel_booking_window, text="Enter Booking id: ")
+        booking_id_label = tk.Label(cancel_booking_window, text="Enter Customer id: ")
         booking_id_label.pack()
         booking_id_entry = tk.Entry(cancel_booking_window)
         booking_id_entry.pack()
@@ -226,32 +252,83 @@ class MainApplication(tk.Frame):
         cancel_button.pack()
 
     def cancel_booking(self ,cancel_booking_window, ID):
-        print("Rr")
         ID = int(ID)
-        print("RR")
-        Booking.cancel_booking(ID)
-        messagebox.showinfo("Info", "Booking Cancelled Successfully")
+        if Booking.cancel_booking(ID):
+            messagebox.showinfo("gg", "Cancel Booking Successfully!")
+        else:
+            messagebox.showinfo("gg", "Booking not Exist!")
         cancel_booking_window.destroy()
 
-    # def cancel_booking(self,book_room,Cust_ID):
-    # Booking.cancel_booking(Cust_ID)
-    # messagebox.showinfo("Success", "Cancel Booking successfully!")
-    # book_room.destroy()
 
-    def display_all_rooms(self):
-        Rooms.display_All_Rooms()
+    def display_all_customers_popup(self):
+        view_bookings_window = tk.Toplevel(self.master)
+        view_bookings_window.title("All Customers")
+        view_bookings_window.geometry("800x600")
+        view_bookings_window.config()
 
-    def display_all_customers(self):
-        Customers.view_data()
+        Cust = Customers.display_All_Customers()
 
+        # Create a Listbox widget to hold the room information
+        room_list = tk.Listbox(view_bookings_window, width=600, height=800)
+        room_list.grid(row=4, column=3)
+        room_list.config(justify=tk.CENTER)
+        room_list.pack(side=TOP)
+        # room_list.insert(tk.END, "")
+
+        # Create a Scrollbar widget and connect it to the Listbox
+        scrollbar = tk.Scrollbar(view_bookings_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        scrollbar.config(command=room_list.yview)
+        room_list.config(yscrollcommand=scrollbar.set)
+
+        for R in Cust:
+            name = R[0]
+            Address = R[1]
+            City = R[2]
+            Email = R[3]
+            Age = R[4]
+            ID = R[5]
+            room_list.insert(tk.END, f"Customer ID: {ID}")
+            room_list.insert(tk.END, f"name Of The Customer is: {name}")
+            room_list.insert(tk.END, f"Address Of The Customer is: {Address}")
+            room_list.insert(tk.END, f"City Of The Customer Is: {City}")
+            room_list.insert(tk.END, f"Email Of The Customer: {Email}")
+            room_list.insert(tk.END, f"Age Of The Customer: {Age}\n\n\n")
+            room_list.insert(tk.END, "")
     def display_all_bookings(self):
-        Booking.View_All_Booking()
+        view_bookings_window = tk.Toplevel(self.master)
+        view_bookings_window.title("All Bookings")
+        view_bookings_window.geometry("800x600")
+        view_bookings_window.config(bg="white")
 
-    def display_booked_rooms(self):
-        pass
+        Book = Booking.view_bookings()
 
-    def display_available_rooms(self):
-        pass
+        # Create a Listbox widget to hold the room information
+        room_list = tk.Listbox(view_bookings_window, width=600, height=800)
+        room_list.grid(row=4, column=3)
+        room_list.config(justify=tk.CENTER)
+        room_list.pack(side=TOP)
+        # room_list.insert(tk.END, "")
+
+        # Create a Scrollbar widget and connect it to the Listbox
+        scrollbar = tk.Scrollbar(view_bookings_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        scrollbar.config(command=room_list.yview)
+        room_list.config(yscrollcommand=scrollbar.set)
+
+        for R in Book:
+            CustID = R[0]
+            RoomID = R[1]
+            ArrivalDate = R[2]
+            DepartureDate = R[3]
+            TotalPrice = R[4]
+            room_list.insert(tk.END, f"Customer ID Is: {CustID}")
+            room_list.insert(tk.END, f"Room Number Is: {RoomID}")
+            room_list.insert(tk.END, f"ArrivalDate Is: {ArrivalDate}")
+            room_list.insert(tk.END, f"DepartureDate Is : {DepartureDate}")
+            room_list.insert(tk.END, f"TotalPrice Is: {TotalPrice}")
+            room_list.insert(tk.END, "")
+
 
     def find_room_by_type(self):
         pass
@@ -260,7 +337,7 @@ class MainApplication(tk.Frame):
         find_room_by_number_window = tk.Toplevel()
         find_room_by_number_window.title("Find Room by Number")
         find_room_by_number_window.geometry("300x200")
-        find_room_by_number_window.config(bg="white")
+        find_room_by_number_window.config()
 
         room_number_label = tk.Label(find_room_by_number_window, text="Enter Room Number: ")
         room_number_label.pack()
@@ -280,16 +357,17 @@ class MainApplication(tk.Frame):
             display_window.geometry("300x200")
             display_window.config()
 
-            name_label = tk.Label(display_window, text=f"Name: {room.Type}")
+            name_label = tk.Label(display_window, text=f"Size: {room.Size}")
             name_label.pack()
-            address_label = tk.Label(display_window, text=f"Address: {room.Address}")
+            address_label = tk.Label(display_window, text=f"Capacity: {room.Capacity}")
             address_label.pack()
-            city_label = tk.Label(display_window, text=f"City: {room.City}")
+            city_label = tk.Label(display_window, text=f"NumberOfBeds: {room.NumberOfBeds}")
             city_label.pack()
-            email_label = tk.Label(display_window, text=f"Email: {room.Email}")
+            email_label = tk.Label(display_window, text=f"Type: {room.Type}")
             email_label.pack()
-            age_label = tk.Label(display_window, text=f"Age: {room.Age}")
+            age_label = tk.Label(display_window, text=f"Price: {room.Price}")
             age_label.pack()
+
 
             close_button = tk.Button(display_window, text="Close", command=display_window.destroy)
             close_button.pack()
@@ -336,10 +414,48 @@ class MainApplication(tk.Frame):
         find_name_window.destroy()
 
     def remove_room(self):
-        pass
+        remove_room_window = tk.Toplevel(self.master)
+        remove_room_window.title("Remove Room")
+        remove_room_window.geometry("400x200")
+        remove_room_window.config(bg="white")
+
+        room_number_label = tk.Label(remove_room_window, text="Enter Room Number:")
+        room_number_label.pack()
+        room_number_entry = tk.Entry(remove_room_window)
+        room_number_entry.pack()
+        Remove = tk.Button(remove_room_window, text="Remove",
+                                  command=lambda: self.remove_roomm(room_number_entry.get(),remove_room_window))
+        Remove.pack()
+
+    def remove_roomm(self,number,remove_room_window):
+       #Rooms.Remove_Room(int(number))
+        if Rooms.Remove_Room(int(number)):
+            messagebox.showinfo("gg","Room Removed Successfully!")
+        else:
+            messagebox.showinfo("gg","Room not Exist!")
+        remove_room_window.destroy()
 
     def remove_customer(self):
-        pass
+        remove_room_window = tk.Toplevel(self.master)
+        remove_room_window.title("Remove Customer")
+        remove_room_window.geometry("400x200")
+        remove_room_window.config()
+
+        Name_label = tk.Label(remove_room_window, text="Enter Customer Name:")
+        Name_label.pack()
+        Name_entry = tk.Entry(remove_room_window)
+        Name_entry.pack()
+        Remove = tk.Button(remove_room_window, text="Remove",
+                           command=lambda: self.remove_Customerr(Name_entry.get(), remove_room_window))
+        Remove.pack()
+
+    def remove_Customerr(self, Name, remove_room_window):
+        # Rooms.Remove_Room(int(number))
+        if Customers.Remove_customer(Name):
+            messagebox.showinfo("gg", "Customer Removed Successfully!")
+        else:
+            messagebox.showinfo("gg", "Customer not Exist!")
+        remove_room_window.destroy()
 
 
 root = tk.Tk()
