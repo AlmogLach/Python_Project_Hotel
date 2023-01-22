@@ -497,6 +497,14 @@
             "NumberOfBeds": 2,
             "Type": "Basic",
             "Price": 100
+        },
+        {
+            "id": 40,
+            "Size": "26mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Deluxe",
+            "Price": 200
         }
     ],
     "Booking": [
