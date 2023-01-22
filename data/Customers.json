@@ -1,15 +1,7 @@
 {
     "Customers": [
         {
-            "ID": 1,
-            "Name": "almog",
-            "Address": "sdaf",
-            "City": "asdf",
-            "Email": "asdf",
-            "Age": 33
-        },
-        {
-            "Name": "'h",
+            "Name": "h",
             "Address": "h",
             "City": "hh",
             "Email": "h",
@@ -161,12 +153,36 @@
             "ID": 20
         },
         {
-            "Name": "almog",
-            "Address": "sdf",
-            "City": "dsfsd",
-            "Email": "fse",
-            "Age": "sfaf",
+            "Name": "",
+            "Address": "",
+            "City": "",
+            "Email": "",
+            "Age": "",
             "ID": 21
+        },
+        {
+            "Name": "almog",
+            "Address": "fes",
+            "City": "df",
+            "Email": "df",
+            "Age": "df",
+            "ID": 20
+        },
+        {
+            "Name": "asd",
+            "Address": "asd",
+            "City": "asd",
+            "Email": "asf",
+            "Age": "afsa",
+            "ID": 21
+        },
+        {
+            "Name": "saar",
+            "Address": "bear",
+            "City": "natanya",
+            "Email": "saar0511@gmail.com",
+            "Age": "44",
+            "ID": 22
         }
     ],
     "Rooms": [
@@ -465,6 +481,22 @@
             "NumberOfBeds": 2,
             "Type": "Basic",
             "Price": 100
+        },
+        {
+            "id": 38,
+            "Size": "22mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Basic",
+            "Price": 100
+        },
+        {
+            "id": 39,
+            "Size": "22mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Basic",
+            "Price": 100
         }
     ],
     "Booking": [
@@ -474,6 +506,69 @@
             "ArrivalDate": "2022-01-04",
             "DepartureDate": "2022-01-11",
             "TotalPrice": 700
+        },
+        {
+            "CustID": 3,
+            "RoomID": 3,
+            "ArrivalDate": "2022-01-01",
+            "DepartureDate": "2022-01-13",
+            "TotalPrice": 1200
+        },
+        {
+            "CustID": 3,
+            "RoomID": 3,
+            "ArrivalDate": "2022-01-14",
+            "DepartureDate": "2022-01-21",
+            "TotalPrice": 700
+        },
+        {
+            "CustID": 2,
+            "RoomID": 3,
+            "ArrivalDate": "2022-01-27",
+            "DepartureDate": "2022-01-28",
+            "TotalPrice": 100
+        },
+        {
+            "CustID": 4,
+            "RoomID": 4,
+            "ArrivalDate": "2022-01-04",
+            "DepartureDate": "2022-01-07",
+            "TotalPrice": 300
+        },
+        {
+            "CustID": 5,
+            "RoomID": 5,
+            "ArrivalDate": "2022-01-04",
+            "DepartureDate": "2022-01-07",
+            "TotalPrice": 300
+        },
+        {
+            "CustID": 2,
+            "RoomID": 15,
+            "ArrivalDate": "2022-01-01",
+            "DepartureDate": "2022-01-01",
+            "TotalPrice": 0
+        },
+        {
+            "CustID": 22,
+            "RoomID": 2,
+            "ArrivalDate": "2022-01-01",
+            "DepartureDate": "2022-01-01",
+            "TotalPrice": 0
+        },
+        {
+            "CustID": 2,
+            "RoomID": 22,
+            "ArrivalDate": "2022-01-01",
+            "DepartureDate": "2022-01-01",
+            "TotalPrice": 0
+        },
+        {
+            "CustID": 3,
+            "RoomID": 22,
+            "ArrivalDate": "2022-01-01",
+            "DepartureDate": "2022-01-01",
+            "TotalPrice": 0
         }
     ]
 }
