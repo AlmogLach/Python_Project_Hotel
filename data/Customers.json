@@ -183,6 +183,14 @@
             "Email": "saar0511@gmail.com",
             "Age": "44",
             "ID": 22
+        },
+        {
+            "Name": "John Doe",
+            "Address": "123 Main St",
+            "City": "New York",
+            "Email": "johndoe@email.com",
+            "Age": 30,
+            "ID": 23
         }
     ],
     "Rooms": [
@@ -505,6 +513,86 @@
             "NumberOfBeds": 2,
             "Type": "Deluxe",
             "Price": 200
+        },
+        {
+            "id": 41,
+            "Size": "22mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Basic",
+            "Price": 100
+        },
+        {
+            "id": 42,
+            "Size": "22mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Basic",
+            "Price": 100
+        },
+        {
+            "id": 43,
+            "Size": "26mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Deluxe",
+            "Price": 200
+        },
+        {
+            "id": 44,
+            "Size": "30mr",
+            "Capacity": 10,
+            "NumberOfBeds": 4,
+            "Type": "Suite",
+            "Price": 300
+        },
+        {
+            "id": 45,
+            "Size": "22mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Basic",
+            "Price": 100
+        },
+        {
+            "id": 46,
+            "Size": "26mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Deluxe",
+            "Price": 200
+        },
+        {
+            "id": 47,
+            "Size": "30mr",
+            "Capacity": 10,
+            "NumberOfBeds": 4,
+            "Type": "Suite",
+            "Price": 300
+        },
+        {
+            "id": 48,
+            "Size": "22mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Basic",
+            "Price": 100
+        },
+        {
+            "id": 49,
+            "Size": "26mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Deluxe",
+            "Price": 200
+        },
+        {
+            "id": 50,
+            "Size": "30mr",
+            "Capacity": 10,
+            "NumberOfBeds": 4,
+            "Type": "Suite",
+            "Price": 300
         }
     ],
     "Booking": [
