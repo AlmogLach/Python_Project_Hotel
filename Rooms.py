@@ -125,8 +125,8 @@ class Rooms:
 
             # list(filter(None, entry))
 
-            else:
-                return False
+
+        return False
 
     @classmethod
     def Remove_Room(cls,delete_option):
