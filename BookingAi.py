@@ -94,6 +94,7 @@ class Booking:
             data["RoomID"] = self.RoomID
             data["ArrivalDate"] = self.ArrivalDate
             data["DepartureDate"] = self.DepartureDate
+            self.set_total_price()
             data["TotalPrice"] = self.TotalPrice
             self.temp["Booking"].append(data)
             with open(filename, "w") as f:

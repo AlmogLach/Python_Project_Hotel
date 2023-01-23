@@ -191,6 +191,14 @@
             "Email": "we",
             "Age": "33",
             "ID": 24
+        },
+        {
+            "Name": "ilan",
+            "Address": "3r3",
+            "City": "fewf",
+            "Email": "sdfads",
+            "Age": "33",
+            "ID": 24
         }
     ],
     "Rooms": [
@@ -601,6 +609,22 @@
             "NumberOfBeds": 2,
             "Type": "Deluxe",
             "Price": 200
+        },
+        {
+            "id": 52,
+            "Size": "26mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Deluxe",
+            "Price": 200
+        },
+        {
+            "id": 53,
+            "Size": "26mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Deluxe",
+            "Price": 200
         }
     ],
     "Booking": [
@@ -666,6 +690,13 @@
             "ArrivalDate": "2022-01-01",
             "DepartureDate": "2022-01-01",
             "TotalPrice": 0
+        },
+        {
+            "CustID": 4,
+            "RoomID": 2,
+            "ArrivalDate": "2023-10-02",
+            "DepartureDate": "2023-10-06",
+            "TotalPrice": 400
         }
     ]
 }
