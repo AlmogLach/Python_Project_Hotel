@@ -161,14 +161,6 @@
             "ID": 21
         },
         {
-            "Name": "almog",
-            "Address": "fes",
-            "City": "df",
-            "Email": "df",
-            "Age": "df",
-            "ID": 20
-        },
-        {
             "Name": "asd",
             "Address": "asd",
             "City": "asd",
@@ -191,6 +183,14 @@
             "Email": "johndoe@email.com",
             "Age": 30,
             "ID": 23
+        },
+        {
+            "Name": "ewd",
+            "Address": "d",
+            "City": "wdq",
+            "Email": "we",
+            "Age": "33",
+            "ID": 24
         }
     ],
     "Rooms": [
@@ -593,16 +593,17 @@
             "NumberOfBeds": 4,
             "Type": "Suite",
             "Price": 300
+        },
+        {
+            "id": 51,
+            "Size": "26mr",
+            "Capacity": 10,
+            "NumberOfBeds": 2,
+            "Type": "Deluxe",
+            "Price": 200
         }
     ],
     "Booking": [
-        {
-            "CustID": 1,
-            "RoomID": 1,
-            "ArrivalDate": "2022-01-04",
-            "DepartureDate": "2022-01-11",
-            "TotalPrice": 700
-        },
         {
             "CustID": 3,
             "RoomID": 3,

@@ -106,7 +106,7 @@ class MainApplication(tk.Frame):
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=room_list.yview)
         room_list.config(yscrollcommand=scrollbar.set)
-        if Book != False:
+        if len(Book)> 0:
             for B in Book:
                 name = B[0]
                 Type = B[1]

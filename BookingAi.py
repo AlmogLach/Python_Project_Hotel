@@ -157,13 +157,13 @@ class Booking:
                         room_type = room["Type"]
                         break
                 list.append((customer_name, room_type, booking['ArrivalDate']))
-                return list
+        return list
 
-            else:
+           # else:
                 # except Exception as error:
                 # print(f"Couldn't load the file - error {error}")
-                print(f"there is no reservetions for {date}")
-                return False
+                #print(f"there is no reservetions for {date}")
+               # return False
 
         #return list
 

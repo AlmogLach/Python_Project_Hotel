@@ -79,41 +79,166 @@ def main():
 
         elif choice == "4":
             customer_id = int(input("Enter customer id: "))
-            room_id = int(input("Enter room id: "))
-            booking=Booking()
-            booking.cancel_booking(customer_id,room_id)
+            #booking=Booking()
+            Booking.cancel_booking(customer_id)
             #booking_id = input("Enter booking id: ")
             #Bookings
             pass
 
         elif choice == "5":
-            Rooms.display_All_Rooms()
+            Room=Rooms.display_All_Rooms()
+            for R in Room:
+                ID = R[0]
+                Size = R[1]
+                Capacity = R[2]
+                NumberOfBeds = R[3]
+                Type = R[4]
+                Price = R[5]
+                print(f"Room Number: {ID}")
+                print(f"Size Of The Room is: {Size}")
+                print(f"Room type: {Type}")
+                print(f"Capacity: {Capacity}")
+                print(f"NumberOfBeds: {NumberOfBeds}")
+                print(f"Price: {Price}\n\n\n")
+                print("")
         elif choice == "6":
-            Customers.view_data()
+            Cust=Customers.display_All_Customers()
+            for R in Cust:
+                name = R[0]
+                Address = R[1]
+                City = R[2]
+                Email = R[3]
+                Age = R[4]
+                ID = R[5]
+                print(f"Customer ID: {ID}")
+                print(f"name Of The Customer is: {name}")
+                print(f"Address Of The Customer is: {Address}")
+                print(f"City Of The Customer Is: {City}")
+                print(f"Email Of The Customer: {Email}")
+                print(f"Age Of The Customer: {Age}\n\n\n")
+                print("")
+
         elif choice == "7":
-            Booking.view_bookings()
+            Book=Booking.view_bookings()
+            for R in Book:
+                CustID = R[0]
+                RoomID = R[1]
+                ArrivalDate = R[2]
+                DepartureDate = R[3]
+                TotalPrice = R[4]
+                print(f"Customer ID Is: {CustID}")
+                print(f"Room Number Is: {RoomID}")
+                print(f"ArrivalDate Is: {ArrivalDate}")
+                print(f"DepartureDate Is : {DepartureDate}")
+                print(f"TotalPrice Is: {TotalPrice}")
+                print("")
 
             # Booking.display_all_bookings(bookings)
         elif choice == "8":
             date = input("Enter date (YYYY-MM-DD): ")
-            Booking.BookedRoomsSpecificDate(date)
+            Book=Booking.BookedRoomsSpecificDate(date)
+            if len(Book)>0:
+
+                for B in Book:
+                    name = B[0]
+                    Type = B[1]
+                    ArrivalDate = B[2]
+
+                    print(f"Customer Name: {name}")
+                    print(f"Room Type Is: {Type}")
+                    print(f"ArrivalDate is: {ArrivalDate}")
+                    print("")
+            else:
+                print(f"there is no reservetions For Your Date")
         elif choice == "9":
             date = input("Enter date (YYYY-MM-DD): ")
-            Booking.AvailableroomsSpecificDate(date)
+            Book=Booking.AvailableroomsSpecificDate(date)
+            if Book != False:
+                for B in Book:
+                    Number_Of_Room = B
+
+                    print(f"Room {int(Number_Of_Room)} Available in {date}")
+                    print("")
+            else:
+                print(f"there is no Room Available In :{date}")
         # Room.display_available_rooms_for_date(rooms, bookings, date)
         elif choice == "10":
+            RoomType=input("Enter Room Type")
+            room=Rooms.RoomByType(RoomType)
+            if room != False:
+                for R in room:
+                    ID = R[0]
+                    Size = R[1]
+                    Capacity = R[2]
+                    NumberOfBeds = R[3]
+                    Type = R[4]
+                    Price = R[5]
+                    print(f"Room Number Is: {ID}")
+                    print(f"Room Size Is: {Size}")
+                    print(f"Room Capacity Is: {Capacity}")
+                    print(f"Room NumberOfBeds Is: {NumberOfBeds}")
+                    print(f"Room Type Is : {Type}")
+                    print(f"Room Price Is: {Price}")
+                    print("")
 
-            room=Rooms.RoomByType()
+            else:
+                print(f"Room Not Exist!")
+
         elif choice == "11":
-            room=Rooms.RoomByNumber()
-        elif choice == "12":
-            cust=Customers.Cust_by_name()
+            Number=input("Enter The Room Number")
+            Room=Rooms.RoomByNumber(Number)
+            if Room != False:
 
-            pass
+                print(f"\nSize: {Room.Size}")
+
+                print(f"Capacity: {Room.Capacity}")
+
+                print(f"NumberOfBeds: {Room.NumberOfBeds}")
+
+                print(f"Type: {Room.Type}")
+
+                print(f"Price: {Room.Price}\n")
+            else:
+                print(f"\nRoom {Number} Not Exist\n")
+
+
+        elif choice == "12":
+            Name = input("Enter Customer Name")
+
+            Cust=Customers.Cust_by_name(Name)
+            if Cust != False:
+                for R in Cust:
+                    name = R[0]
+                    Address = R[1]
+                    City = R[2]
+                    Email = R[3]
+                    Age = R[4]
+                    ID = R[5]
+                    print(f"Customer ID Is: {ID}")
+                    print(f"Customer Name Is: {name}")
+                    print(f"Customer Address Is: {Address}")
+                    print(f"Customer City Is: {City}")
+                    print(f"Customer Email Is : {Email}")
+                    print(f"Customer Age Is: {Age}")
+                    print("")
+
+            else:
+                print(f"Customer Not Exist!")
+
+
             # customer_name = input
         elif choice == "13":
-            print(Rooms.Remove_Room())
+            Number = input("Enter The Room Number")
+            if Rooms.Remove_Room(int(Number)):
+                print("Success", "Room Removed Successfully!")
+            else:
+                print("Failed", "Room not Exist!")
+
         elif choice == "14":
-            print(Customers.Remove_customer())
+            Name = input("Enter Customer Name")
+            if Customers.Remove_customer(Name):
+                print("Sucess", "Customer Removed Successfully!")
+            else:
+                print("Failed", "Customer not Exist!")
 
 main()
